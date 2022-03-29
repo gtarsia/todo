@@ -9,6 +9,7 @@ import { createTaskBelow } from 'app/stores/document'
 import {
   nonReactiveSetTaskText, nonReactiveSetTextareaRef, focusNext, focusPrevious,
   deleteTask, swapPrevious, swapNext, toggleChecked,
+  increaseIndent, decreaseIndent,
 } from 'app/stores/document'
 
 export function TaskText(props: { task: TaskModel, index: number }) {
@@ -60,9 +61,9 @@ export function TaskText(props: { task: TaskModel, index: number }) {
       }
       if (e.key === 'Tab') {
         if (e.shiftKey) {
-          // decreaseIndent(props.i)
+          decreaseIndent(props.index)
         } else {
-          // increaseIndent(props.i)
+          increaseIndent(props.index)
         }
         e.preventDefault()
       }
