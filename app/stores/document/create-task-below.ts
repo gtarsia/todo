@@ -3,8 +3,8 @@ import { getNewIndexes } from 'app/utils/array'
 import { useDocumentStore } from './store'
 
 export function createTaskBelow(index: number) {
+  const oldTasks = useDocumentStore.getState().tasks.slice()
   useDocumentStore.setState(state => {
-    const oldTasks = state.tasks.slice()
     const tasks = produce(oldTasks, (draft) => {
       const newTask = { checked: true, text: '', indent: 0 }
       draft.splice(index + 1, 0, newTask)

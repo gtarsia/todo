@@ -1,17 +1,26 @@
-import produce from 'immer'
-import { swapIndexes } from 'app/utils/array'
+import produce, { current } from 'immer'
+import { getNewIndexes } from 'app/utils/array'
+import {
+  getTaskRange, getNextSiblingIndex, swapRanges, getPreviousSiblingIndex,
+} from 'app/utils/task'
 import { useDocumentStore } from './store'
 
 export function swapPrevious(index: number) {
+  const { tasks } = useDocumentStore.getState()
   if (index === 0) {
     return
   }
+  const oldTasks = tasks.slice()
   useDocumentStore.setState(produce(state => {
-    swapIndexes(state.tasks, index, index - 1)
-    const currentIndexI = state.indexes.findIndex((i: number) => i === index)
-    const previousIndexI = state.indexes.findIndex((i: number) => i === index - 1)
-    swapIndexes(state.indexes, currentIndexI, previousIndexI)
+    const taskRange = getTaskRange(state.tasks, index)
+    const siblingIndex = getPreviousSiblingIndex(state.tasks, index)
+    const siblingRange = getTaskRange(state.tasks, siblingIndex)
+    swapRanges(state.tasks, taskRange, siblingRange)
   }))
+  useDocumentStore.setState(state => {
+    const indexes = getNewIndexes(state.indexes, oldTasks, state.tasks)
+    return { indexes }
+  })
 }
 
 export function swapNext(index: number) {
@@ -19,10 +28,15 @@ export function swapNext(index: number) {
   if (index >= tasks.length - 1) {
     return
   }
+  const oldTasks = tasks.slice()
   useDocumentStore.setState(produce(state => {
-    swapIndexes(state.tasks, index, index + 1)
-    const currentIndexI = state.indexes.findIndex((i: number) => i === index)
-    const nextIndexI = state.indexes.findIndex((i: number) => i === index + 1)
-    swapIndexes(state.indexes, currentIndexI, nextIndexI)
+    const taskRange = getTaskRange(state.tasks, index)
+    const siblingIndex = getNextSiblingIndex(state.tasks, index)
+    const siblingRange = getTaskRange(state.tasks, siblingIndex)
+    swapRanges(state.tasks, taskRange, siblingRange)
   }))
+  useDocumentStore.setState(state => {
+    const indexes = getNewIndexes(state.indexes, oldTasks, state.tasks)
+    return { indexes }
+  })
 }

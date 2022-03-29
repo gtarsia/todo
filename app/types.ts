@@ -5,3 +5,8 @@ export interface TaskModel {
   indent: number;
   ref?: HTMLTextAreaElement;
 }
+
+export interface Range {
+  start: number;
+  count: number;
+}

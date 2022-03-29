@@ -8,7 +8,7 @@ export function getNewIndexes(
   newArray.forEach((el, i) => {
     map.set(el, i)
   })
-  return oldIndexes.map((n: number | null) => {
+  const result = oldIndexes.map((n: number | null) => {
     if (n == null) {
       return n
     }
@@ -16,4 +16,5 @@ export function getNewIndexes(
     const found = map.get(task)
     return found == null ? null : found
   })
+  return result
 }

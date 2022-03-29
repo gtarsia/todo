@@ -4,8 +4,12 @@ import { useDocumentStore } from './store'
 import { focusPrevious } from './focus'
 
 export function deleteTask(index: number) {
+  const { tasks } = useDocumentStore.getState()
+  if (tasks.length < 2) {
+    return
+  }
+  const oldTasks = tasks.slice()
   useDocumentStore.setState(produce(state => {
-    const oldTasks = state.tasks.slice()
     state.tasks.splice(index, 1)
     state.indexes = getNewIndexes(state.indexes,
                                   oldTasks,
