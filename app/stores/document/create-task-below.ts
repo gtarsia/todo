@@ -6,7 +6,7 @@ export function createTaskBelow(index: number) {
   const oldTasks = useDocumentStore.getState().tasks.slice()
   useDocumentStore.setState(state => {
     const tasks = produce(oldTasks, (draft) => {
-      const newTask = { checked: true, text: '', indent: 0 }
+      const newTask = { checked: false, text: '', indent: 0 }
       draft.splice(index + 1, 0, newTask)
     })
     const indexes = getNewIndexes(state.indexes, oldTasks, tasks)

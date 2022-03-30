@@ -8,7 +8,7 @@ interface DocumentStore {
 }
 
 export const useDocumentStore = create<DocumentStore>(set => ({
-  tasks: [{ checked: true, text: 'write here', indent: 0 }],
+  tasks: [{ checked: false, text: 'write here', indent: 0 }],
   indexes: [0],
   id: '',
 }))
