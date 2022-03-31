@@ -10,3 +10,9 @@ export interface Range {
   start: number;
   count: number;
 }
+
+export interface DocumentModel {
+  id: string;
+  name: string;
+  selected: boolean;
+}

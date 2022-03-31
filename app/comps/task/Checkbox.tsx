@@ -2,13 +2,16 @@ import cx from 'classnames'
 // import { setChecked } from 'src/store'
 
 export function TaskCheckbox(props: { checked: boolean }) {
-  const uncheckedCls = 'bg-opacity-0 border border-slate-500'
+  const uncheckedCls = 'bg-opacity-0 border-2 border-amber-500'
   const checkedCls = 'bg-amber-400 text-white'
   const cls = props.checked ? checkedCls : uncheckedCls
   return <div role="checkbox"
     aria-checked={props.checked}
     aria-labelledby="task"
-    className={cx('checkbox', cls)}
+    className={cx(
+      'checkbox rounded-lg',
+      props.checked ? checkedCls : uncheckedCls
+    )}
     // onClick={() => setChecked(props.i, !props.checked)}
   >
     {props.checked && <svg viewBox="-5 0 35 25"

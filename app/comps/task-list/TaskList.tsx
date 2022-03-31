@@ -11,8 +11,10 @@ export function TaskList() {
   useEffect(() => {
     focusFirst()
   }, [])
-  return <div className="relative">
-    {indexes.map((i, j) => i != null &&
-      <Task task={tasks[i]} index={i} key={j} />)}
-  </div>
+  return <div className="p-5"><div>
+    <div className="relative">
+      {indexes.map((i, j) => i != null &&
+        <Task task={tasks[i]} index={i} key={j} />)}
+    </div>
+  </div></div>
 }

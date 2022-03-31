@@ -1,0 +1,8 @@
+
+.documentListTitle {
+  font-variation-settings: 'wght' 550;
+}
+
+.documentListAddButton {
+  transition: background-color 0.2s;
+}
