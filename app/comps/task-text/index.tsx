@@ -41,6 +41,7 @@ export function TaskText(props: { task: TaskModel, index: number }) {
       if (e.key === 'ArrowUp') {
         if (e.ctrlKey) {
           swapPrevious(props.index)
+          e.preventDefault()
         } else if (isCursorOnFirstLine(textarea)) {
           focusPrevious(props.index)
           e.preventDefault()
@@ -49,6 +50,7 @@ export function TaskText(props: { task: TaskModel, index: number }) {
       if (e.key === 'ArrowDown') {
         if (e.ctrlKey) {
           swapNext(props.index)
+          e.preventDefault()
         } else if (isCursorOnLastLine(textarea)) {
           focusNext(props.index)
           e.preventDefault()
@@ -94,8 +96,8 @@ export function TaskText(props: { task: TaskModel, index: number }) {
     }
   }, [props.index])
   const setText = useCallback(debounce((text: string) => {
-    props.task.text = text
-  }, 100), [])
+    nonReactiveSetTaskText(props.index, text)
+  }, 100), [props.index])
   const defaultCls = `${styles.taskText} resize-none w-full text-lg
     outline-none bg-gray-100 bg-opacity-0
     hover:bg-gray-200/50
