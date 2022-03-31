@@ -1,7 +1,7 @@
 import create, { Mutate, GetState, SetState, StoreApi } from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
 import { DocumentModel } from 'app/types'
-import { saveDocuments } from 'app/data/document'
+import { appData } from 'app/data'
 
 export interface AppStore {
   documents: DocumentModel[];
@@ -21,5 +21,5 @@ export const useAppStore = create<
 >(subscribeWithSelector(() => init))
 
 useAppStore.subscribe((state) => state.documents, (docs: DocumentModel[]) => {
-  saveDocuments(docs)
+  appData.saveDocuments(docs)
 })

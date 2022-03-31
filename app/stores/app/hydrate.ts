@@ -1,9 +1,10 @@
 import { useAppStore } from './store'
-import { getDocuments } from 'app/data/document'
+import { appData } from 'app/data'
 
-export function hydrateDocuments() {
-  useAppStore.setState(state => {
-    const documents = getDocuments()
-    return { documents }
-  })
+export async function hydrateDocuments() {
+  const [documents, documentId] = await Promise.all([
+    appData.getDocuments(),
+    appData.getSelectedDocument(),
+  ])
+  useAppStore.setState({ documents, documentId })
 }
