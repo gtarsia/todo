@@ -6,6 +6,11 @@ export interface TaskModel {
   ref?: HTMLTextAreaElement;
 }
 
+export interface TaskProps {
+  task: TaskModel;
+  index: number;
+}
+
 export interface Range {
   start: number;
   count: number;

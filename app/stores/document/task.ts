@@ -1,4 +1,5 @@
 import produce from 'immer'
+import { TaskModel } from 'app/types'
 import {
   getLastUncheckedSiblingIndex, getTaskRange, swapRanges,
 } from 'app/utils/task'
@@ -43,4 +44,11 @@ export function decreaseIndent(index: number) {
     const newTasks = produce(tasks, draft => { draft[index].indent -= 1 })
     updateTasks(newTasks, indexes)
   }
+}
+
+export function setIndent(index: number, indent: number): TaskModel {
+  const { tasks, indexes } = useDocumentStore.getState()
+  const newTasks = produce(tasks, draft => { draft[index].indent = indent })
+  updateTasks(newTasks, indexes)
+  return newTasks[index]
 }
