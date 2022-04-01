@@ -2,6 +2,7 @@ import produce from 'immer'
 import { getNewIndexes } from 'app/utils/array'
 import { useDocumentStore } from './store'
 import { updateTasks } from './update-tasks'
+import { focusNext } from './focus'
 
 export function createTaskBelow(index: number) {
   const { tasks, indexes } = useDocumentStore.getState()
@@ -13,4 +14,7 @@ export function createTaskBelow(index: number) {
   const newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   newIndexes.push(index + 1)
   updateTasks(newTasks, newIndexes)
+  setTimeout(() => {
+    focusNext(index)
+  })
 }

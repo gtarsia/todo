@@ -13,5 +13,7 @@ export function deleteTask(index: number) {
   const newTasks = tasks.slice().splice(index, 1)
   const newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   updateTasks(newTasks, newIndexes)
-  focusPrevious(index)
+  setTimeout(() => {
+    focusPrevious(index)
+  })
 }
