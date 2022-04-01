@@ -4,39 +4,34 @@ import {
   getTaskRange, getNextSiblingIndex, swapRanges, getPreviousSiblingIndex,
 } from 'app/utils/task'
 import { useDocumentStore } from './store'
+import { updateTasks } from './update-tasks'
 
 export function swapPrevious(index: number) {
-  const { tasks } = useDocumentStore.getState()
+  const { tasks, indexes } = useDocumentStore.getState()
   if (index === 0) {
     return
   }
   const oldTasks = tasks.slice()
-  useDocumentStore.setState(produce(state => {
-    const taskRange = getTaskRange(state.tasks, index)
-    const siblingIndex = getPreviousSiblingIndex(state.tasks, index)
-    const siblingRange = getTaskRange(state.tasks, siblingIndex)
-    swapRanges(state.tasks, taskRange, siblingRange)
-  }))
-  useDocumentStore.setState(state => {
-    const indexes = getNewIndexes(state.indexes, oldTasks, state.tasks)
-    return { indexes }
-  })
+  const newTasks = tasks.slice()
+  const taskRange = getTaskRange(newTasks, index)
+  const siblingIndex = getPreviousSiblingIndex(newTasks, index)
+  const siblingRange = getTaskRange(newTasks, siblingIndex)
+  swapRanges(newTasks, taskRange, siblingRange)
+  const newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
+  updateTasks(newTasks, newIndexes)
 }
 
 export function swapNext(index: number) {
-  const { tasks } = useDocumentStore.getState()
+  const { tasks, indexes } = useDocumentStore.getState()
   if (index >= tasks.length - 1) {
     return
   }
   const oldTasks = tasks.slice()
-  useDocumentStore.setState(produce(state => {
-    const taskRange = getTaskRange(state.tasks, index)
-    const siblingIndex = getNextSiblingIndex(state.tasks, index)
-    const siblingRange = getTaskRange(state.tasks, siblingIndex)
-    swapRanges(state.tasks, taskRange, siblingRange)
-  }))
-  useDocumentStore.setState(state => {
-    const indexes = getNewIndexes(state.indexes, oldTasks, state.tasks)
-    return { indexes }
-  })
+  const newTasks = tasks.slice()
+  const taskRange = getTaskRange(newTasks, index)
+  const siblingIndex = getNextSiblingIndex(newTasks, index)
+  const siblingRange = getTaskRange(newTasks, siblingIndex)
+  swapRanges(newTasks, taskRange, siblingRange)
+  const newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
+  updateTasks(newTasks, newIndexes)
 }

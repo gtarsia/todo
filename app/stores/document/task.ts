@@ -1,41 +1,46 @@
 import produce from 'immer'
-import { useDocumentStore } from './store'
 import {
   getLastUncheckedSiblingIndex, getTaskRange, swapRanges,
 } from 'app/utils/task'
 import { getNewIndexes } from 'app/utils/array'
+import { updateTasks } from './update-tasks'
+import { useDocumentStore } from './store'
+
+function _toggleChecked(index: number) {
+  const state = useDocumentStore.getState()
+  const tasks = produce(state.tasks, draft => {
+    draft[index].checked = !draft[index].checked
+  })
+  useDocumentStore.setState({ tasks })
+}
 
 export function toggleChecked(index: number) {
-  const { checked } = useDocumentStore.getState().tasks[index]
-  useDocumentStore.setState(produce(state => {
-    state.tasks[index].checked = !checked
-  }))
-  if (!checked) {
-    const { tasks } = useDocumentStore.getState()
-    const siblingIndex = getLastUncheckedSiblingIndex(tasks, index)
-    const taskRange = getTaskRange(tasks, index)
-    const siblingRange = getTaskRange(tasks, siblingIndex)
-    const oldTasks = tasks.slice()
-    useDocumentStore.setState(produce(state => {
-      swapRanges(state.tasks, taskRange, siblingRange)
-    }))
-    useDocumentStore.setState(state => {
-      const indexes = getNewIndexes(state.indexes, oldTasks, state.tasks)
-      return { indexes }
-    })
+  _toggleChecked(index)
+  const { tasks, indexes } = useDocumentStore.getState()
+  const { checked } = tasks[index]
+  const oldTasks = tasks.slice()
+  const newTasks = tasks.slice()
+  let newIndexes = indexes
+  if (checked) {
+    const siblingIndex = getLastUncheckedSiblingIndex(newTasks, index)
+    const taskRange = getTaskRange(newTasks, index)
+    const siblingRange = getTaskRange(newTasks, siblingIndex)
+    swapRanges(newTasks, taskRange, siblingRange)
+    newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   }
+  updateTasks(newTasks, newIndexes)
 }
 
 export function increaseIndent(index: number) {
-  useDocumentStore.setState(produce(state => {
-    state.tasks[index].indent += 1
-  }))
+  const { tasks, indexes } = useDocumentStore.getState()
+  const newTasks = produce(tasks, draft => { draft[index].indent += 1 })
+  updateTasks(newTasks, indexes)
 }
 
 export function decreaseIndent(index: number) {
-  useDocumentStore.setState(produce(state => {
-    if (state.tasks[index].indent > 0) {
-      state.tasks[index].indent -= 1
-    }
-  }))
+  const { tasks, indexes } = useDocumentStore.getState()
+  if (tasks[index].indent > 0) {
+    const newTasks = produce(tasks, draft => { draft[index].indent -= 1 })
+    updateTasks(newTasks, indexes)
+  }
 }

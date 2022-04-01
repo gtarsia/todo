@@ -1,9 +1,5 @@
 import { useDocumentStore } from './store'
-
-export function nonReactiveToggleChecked(index: number) {
-  const { tasks } = useDocumentStore.getState()
-  tasks[index].checked = !tasks[index].checked
-}
+import { updateTasks } from './update-tasks'
 
 export function nonReactiveSetTextareaRef(index: number, el: HTMLTextAreaElement) {
   const { tasks } = useDocumentStore.getState()
@@ -11,6 +7,7 @@ export function nonReactiveSetTextareaRef(index: number, el: HTMLTextAreaElement
 }
 
 export function nonReactiveSetTaskText(index: number, text: string) {
-  const { tasks } = useDocumentStore.getState()
+  const { tasks, indexes } = useDocumentStore.getState()
   tasks[index].text = text
+  updateTasks(tasks, indexes)
 }

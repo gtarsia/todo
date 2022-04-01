@@ -7,9 +7,6 @@ interface DocumentStore {
 }
 
 export const useDocumentStore = create<DocumentStore>(set => ({
-  tasks: [{ checked: false, text: 'write here', indent: 0 }],
-  indexes: [0],
+  tasks: [],
+  indexes: [],
 }))
-
-useDocumentStore.subscribe((state: any) => state.tasks, (tasks) => {
-})
