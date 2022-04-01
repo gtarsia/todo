@@ -1,7 +1,7 @@
 import produce, { current } from 'immer'
 import { getNewIndexes } from 'app/utils/array'
 import { useDocumentStore } from './store'
-import { focusPrevious } from './focus'
+import { focusFirst, focusPrevious } from './focus'
 import { updateTasks } from './update-tasks'
 
 export function deleteTask(index: number) {
@@ -10,10 +10,15 @@ export function deleteTask(index: number) {
     return
   }
   const oldTasks = tasks.slice()
-  const newTasks = tasks.slice().splice(index, 1)
+  const newTasks = tasks.slice()
+  newTasks.splice(index, 1)
   const newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   updateTasks(newTasks, newIndexes)
   setTimeout(() => {
-    focusPrevious(index)
+    if (index === 0) {
+      focusFirst()
+    } else {
+      focusPrevious(index)
+    }
   })
 }
