@@ -3,12 +3,15 @@ import cx from 'classnames'
 import { Task } from 'app/comps/task'
 import { useAppStore, resetDocument }  from 'app/stores/app'
 import { useDocumentStore, focusFirst } from 'app/stores/document'
+import { useFocusStore } from 'app/stores/focus'
 import { DragBoxes } from './DragBoxes'
 import { TaskModel } from 'app/types'
 
 export function TaskList() {
   const indexes = useDocumentStore(state => state.indexes)
   const tasks = useDocumentStore(state => state.tasks)
+  const focusIndexes = useFocusStore(state => state.focusIndexes)
+  console.log('focusIndexes: ', focusIndexes)
   const doc = useAppStore(state => state.document())
   const list = indexes.map((index, j) => {
     if (index == null) {
@@ -17,13 +20,17 @@ export function TaskList() {
     const task = tasks[index]
     const height: number = 33 * index
     const top = `${height}px`
-    return <>
-      <div key={j} className="task relative" style={{ top }}>
+    const focus = focusIndexes[index]
+    return <div key={j}>
+      <div
+        className={cx("task relative", focus ? '' : 'opacity-5')}
+        style={{ top }}
+      >
         <Task task={task} index={index} />
         <DragBoxes task={task} index={index} />
       </div>
       {j === indexes.length - 1 && <div className="relative h-8" style={{ top: `${height + 33}px` }}></div>}
-    </>
+    </div>
   })
   return <div className="relative left-0 top-0 w-full h-full">
     <div

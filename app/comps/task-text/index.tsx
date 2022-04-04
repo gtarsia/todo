@@ -5,12 +5,12 @@ import {
   getCursorPosition, isCursorOnStart, isSelecting,
   isCursorOnFirstLine, isCursorOnLastLine,
 } from 'app/utils/textarea'
-import { createTaskBelow } from 'app/stores/document'
 import {
   nonReactiveSetTaskText, nonReactiveSetTextareaRef, focusNext, focusPrevious,
-  deleteTask, swapPrevious, swapNext, toggleChecked,
+  deleteTask, swapPrevious, swapNext, toggleChecked, createTaskBelow,
   increaseIndent, decreaseIndent,
 } from 'app/stores/document'
+import { setFocusedIndex } from 'app/stores/focus'
 import styles from './index.module.css'
 
 export function TaskText(props: { task: TaskModel, index: number }) {
@@ -109,5 +109,6 @@ export function TaskText(props: { task: TaskModel, index: number }) {
     onChange={(e) => {
       setText(e.target.value)
     }}
+    onFocus={() => setFocusedIndex(props.index)}
   />
 }

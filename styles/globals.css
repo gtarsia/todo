@@ -14,7 +14,7 @@ html, body, #__next {
     @apply rounded-full cursor-pointer;
   }
   .task {
-    transition-property: top, left;
+    transition-property: top, left, opacity;
     transition-duration: .2s;
     transition-timing-function: ease-out;
   }
