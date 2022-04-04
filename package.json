@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3500",
     "build": "next build && next export -o docs && touch docs/.nojekyll",
+    "pub": "npm run build && git add . && git commit -m \"Publish\"",
     "start": "next start",
     "type-check": "tsc --watch --pretty",
     "test:watch": "jest --watch",
