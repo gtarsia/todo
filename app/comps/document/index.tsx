@@ -7,8 +7,8 @@ export function SidebarDocument(props: { doc: DocumentModel, selected: boolean }
   return <div
     className={cx(
       styles.document,
-      'px-4 py-1 hover:bg-zinc-200',
-      'rounded-md cursor-pointer mb-2',
+      'px-4 py-1 mb-2 hover:bg-zinc-200',
+      'rounded-md cursor-pointer',
       props.selected ? 'selected' : '',
       props.selected ? 'text-gray-700' : ' text-[#7C7C7A]',
       props.selected ? 'bg-[#F5F5F5]' : '',
