@@ -11,7 +11,7 @@ export function TodoApp() {
   }, [])
   return <div className="flex h-full">
     <div className={cx(
-      'w-full sm:w-64 sm:block',
+      'w-full sm:w-96 sm:block',
       documentId ? 'hidden' : 'block',
     )}
     >

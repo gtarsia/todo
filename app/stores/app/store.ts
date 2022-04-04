@@ -13,7 +13,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
   documentId: '',
   document: () => {
     const { documents, documentId } = get()
-    return documents.filter(doc => doc.id === documentId)[0]
+    return documents.filter(doc => doc && doc.id === documentId)[0]
   }
 }))
 
