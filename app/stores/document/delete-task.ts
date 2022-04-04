@@ -9,16 +9,16 @@ export function deleteTask(index: number) {
   if (tasks.length < 2) {
     return
   }
+  if (index === 0) {
+    focusFirst()
+  } else {
+    focusPrevious(index)
+  }
   const oldTasks = tasks.slice()
   const newTasks = tasks.slice()
   newTasks.splice(index, 1)
   const newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   updateTasks(newTasks, newIndexes)
   setTimeout(() => {
-    if (index === 0) {
-      focusFirst()
-    } else {
-      focusPrevious(index)
-    }
   })
 }

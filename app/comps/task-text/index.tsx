@@ -31,7 +31,7 @@ export function TaskText(props: { task: TaskModel, index: number }) {
         if (e.ctrlKey) {
           toggleChecked(props.index)
           e.preventDefault()
-        } else if (!e.shiftKey) {
+        } else {
           createTaskBelow(props.index)
           e.preventDefault()
         }
