@@ -18,4 +18,9 @@ html, body, #__next {
     transition-duration: .2s;
     transition-timing-function: ease-out;
   }
+
+  .icon-button {
+    transition: background-color 0.2s;
+    @apply hover:bg-gray-200/50 -mt-1 h-9 p-1.5 rounded-full text-gray-600;
+  }
 }

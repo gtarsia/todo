@@ -18,11 +18,7 @@ export function DocumentSelector() {
       )}>
         Documents
       </div>
-      <button
-        className={cx(
-          styles.documentListAddButton,
-          'hover:bg-gray-200/50 -mt-2 h-10 p-2 rounded-full',
-        )}
+      <button className="icon-button"
         onClick={createDocument}
       >
         <span className="material-icons-outlined cursor-pointer text-gray-600">
