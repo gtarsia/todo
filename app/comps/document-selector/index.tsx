@@ -1,13 +1,9 @@
-import { useEffect } from 'react'
 import cx from 'classnames'
 import { DocumentList } from 'app/comps/document-list'
-import { createDocument as _createDocument, hydrateDocuments } from 'app/stores/app'
+import { createDocument as _createDocument } from 'app/stores/app'
 import styles from './index.module.css'
 
 export function DocumentSelector() {
-  useEffect(() => {
-    hydrateDocuments()
-  }, [])
   function createDocument() {
     const name = prompt('What\'s the name of the new task?')
     if (name) {
