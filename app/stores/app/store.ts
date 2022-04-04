@@ -1,25 +1,23 @@
-import create, { Mutate, GetState, SetState, StoreApi } from 'zustand'
-import { subscribeWithSelector } from 'zustand/middleware'
+import create from 'zustand'
 import { DocumentModel } from 'app/types'
 import { appData } from 'app/data'
 
 export interface AppStore {
   documents: DocumentModel[];
   documentId: string;
+  document: () => DocumentModel | undefined;
 }
 
-const init: AppStore = ({
+export const useAppStore = create<AppStore>((set, get) => ({
   documents: [],
   documentId: '',
-})
+  document: () => {
+    const { documents, documentId } = get()
+    return documents.filter(doc => doc.id === documentId)[0]
+  }
+}))
 
-export const useAppStore = create<
-  AppStore,
-  SetState<AppStore>,
-  GetState<AppStore>,
-  Mutate<StoreApi<AppStore>, [["zustand/subscribeWithSelector", never]]>
->(subscribeWithSelector(() => init))
-
-useAppStore.subscribe((state) => state.documents, (docs: DocumentModel[]) => {
-  appData.saveDocuments(docs)
-})
+export function setDocuments(documents: DocumentModel[]) {
+  useAppStore.setState({ documents })
+  appData.saveDocuments(documents)
+}

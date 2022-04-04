@@ -1,9 +1,12 @@
 import produce from 'immer'
-import { useAppStore, AppStore } from './store'
+import { DocumentModel } from 'app/types'
+import { useAppStore, AppStore, setDocuments } from './store'
 import { newDocument } from './new'
 
 export function createDocument(name: string) {
-  useAppStore.setState(produce((state: AppStore) => {
-    state.documents.push(newDocument(name))
-  }))
+  const { documents } = useAppStore.getState()
+  const newDocuments = produce(documents, (draft: DocumentModel[]) => {
+    draft.push(newDocument(name))
+  })
+  setDocuments(newDocuments)
 }

@@ -1,15 +1,22 @@
-// import { useEffect } from 'react'
-// import { hydrateTodo, setDocument } from 'src/store'
+import cx from 'classnames'
 import { DocumentSelector } from 'app/comps/document-selector'
 import { TaskList } from 'app/comps/task-list'
+import { useAppStore } from 'app/stores/app'
 
 export function TodoApp() {
-  return <div className="flex h-full h-full">
-    <div className="w-64">
+  const { documentId } = useAppStore()
+  return <div className="flex h-full">
+    <div className={cx(
+      'w-full sm:w-64 sm:block',
+      documentId ? 'hidden' : 'block',
+    )}
+    >
       <DocumentSelector />
     </div>
-    <div className="grow">
+    {documentId && <div className={cx(
+      'sm:grow w-full',
+    )}>
       <TaskList />
-    </div>
+    </div>}
   </div>
 }

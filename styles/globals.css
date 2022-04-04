@@ -11,7 +11,7 @@ html, body, #__next {
 
 @layer components {
   .checkbox {
-    @apply rounded-full cursor-pointer w-6 h-6;
+    @apply rounded-full cursor-pointer;
   }
   .task {
     transition-property: top, left;
