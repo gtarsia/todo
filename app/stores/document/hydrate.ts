@@ -8,7 +8,7 @@ export async function hydrateTasks(documentId: string) {
     tasks.push({ checked: false, text: 'Write here...', indent: 0 })
   }
   const indexes = tasks.map((t, i) => i)
-  useDocumentStore.setState({ tasks, indexes })
+  useDocumentStore.setState({ tasks, indexes, focusIndex: 0 })
   setTimeout(() => {
     focusFirst()
   })
