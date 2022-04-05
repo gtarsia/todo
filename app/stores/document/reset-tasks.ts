@@ -4,5 +4,6 @@ export function resetTasks() {
   useDocumentStore.setState({
     tasks: [],
     indexes: [],
+    focusIndex: undefined,
   })
 }

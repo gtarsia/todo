@@ -8,9 +8,8 @@ import {
 import {
   nonReactiveSetTaskText, nonReactiveSetTextareaRef, focusNext, focusPrevious,
   deleteTask, swapPrevious, swapNext, toggleChecked, createTaskBelow,
-  increaseIndent, decreaseIndent,
+  increaseIndent, decreaseIndent, setFocusIndex,
 } from 'app/stores/document'
-import { setFocusedIndex } from 'app/stores/focus'
 import styles from './index.module.css'
 
 export function TaskText(props: { task: TaskModel, index: number }) {
@@ -109,6 +108,6 @@ export function TaskText(props: { task: TaskModel, index: number }) {
     onChange={(e) => {
       setText(e.target.value)
     }}
-    onFocus={() => setFocusedIndex(props.index)}
+    onFocus={() => setFocusIndex(props.index)}
   />
 }

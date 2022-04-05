@@ -4,11 +4,16 @@ import { useAppStore } from 'app/stores/app'
 import { useDocumentStore } from './store'
 
 export function updateTasks(tasks: TaskModel[], indexes: Array<number | null>) {
+  let { focusIndex, tasks: oldTasks } = useDocumentStore.getState()
+  if (focusIndex !== undefined) {
+    const oldTask = oldTasks[focusIndex]
+    focusIndex = tasks.findIndex(t => t === oldTask)
+  }
   const { documentId } = useAppStore.getState()
   if (!documentId) {
     return
   }
-  useDocumentStore.setState({ tasks, indexes })
+  useDocumentStore.setState({ tasks, indexes, focusIndex })
   if (tasks.length === 0) {
     return
   }

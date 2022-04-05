@@ -11,7 +11,6 @@ export function TaskList() {
   const indexes = useDocumentStore(state => state.indexes)
   const tasks = useDocumentStore(state => state.tasks)
   const focusIndexes = useFocusStore(state => state.focusIndexes)
-  console.log('focusIndexes: ', focusIndexes)
   const doc = useAppStore(state => state.document())
   const list = indexes.map((index, j) => {
     if (index == null) {

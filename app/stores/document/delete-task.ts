@@ -19,6 +19,4 @@ export function deleteTask(index: number) {
   newTasks.splice(index, 1)
   const newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   updateTasks(newTasks, newIndexes)
-  setTimeout(() => {
-  })
 }
