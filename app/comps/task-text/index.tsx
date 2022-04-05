@@ -20,11 +20,16 @@ export function TaskText(props: { task: TaskModel, index: number }) {
     }
   }, [props.task])
   useEffect(() => {
+    if (textareaRef.current) {
+      const textarea: HTMLTextAreaElement = textareaRef.current
+      nonReactiveSetTextareaRef(props.index, textarea)
+    }
+  }, [props.task, props.index])
+  useEffect(() => {
     if (!textareaRef?.current) {
       return
     }
     const textarea: HTMLTextAreaElement = textareaRef.current
-    nonReactiveSetTextareaRef(props.index, textarea)
     function handleKeypress(e: KeyboardEvent) {
       if (e.key === 'Enter') {
         if (e.ctrlKey) {
