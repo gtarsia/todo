@@ -7,7 +7,10 @@ export function updateTasks(tasks: TaskModel[], indexes: Array<number | null>) {
   let { focusIndex, tasks: oldTasks } = useDocumentStore.getState()
   if (focusIndex !== undefined) {
     const oldTask = oldTasks[focusIndex]
-    focusIndex = tasks.findIndex(t => t === oldTask)
+    const found = tasks.findIndex(t => t === oldTask)
+    if (found > -1) {
+      focusIndex = found
+    }
   }
   const { documentId } = useAppStore.getState()
   if (!documentId) {
