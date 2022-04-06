@@ -3,14 +3,14 @@ import cx from 'classnames'
 import { Task } from 'app/comps/task'
 import { useAppStore, resetDocument }  from 'app/stores/app'
 import { useDocumentStore, focusFirst } from 'app/stores/document'
-import { useFocusStore } from 'app/stores/focus'
+import { useFocusStore, toggleFocusMode } from 'app/stores/focus'
 import { DragBoxes } from './DragBoxes'
 import { TaskModel } from 'app/types'
 
 export function TaskList() {
   const indexes = useDocumentStore(state => state.indexes)
   const tasks = useDocumentStore(state => state.tasks)
-  const focusIndexes = useFocusStore(state => state.focusIndexes)
+  const { focusIndexes, focusMode } = useFocusStore()
   const doc = useAppStore(state => state.document())
   const list = indexes.map((index, j) => {
     if (index == null) {
@@ -19,7 +19,7 @@ export function TaskList() {
     const task = tasks[index]
     const height: number = 33 * index
     const top = `${height}px`
-    const focus = focusIndexes[index]
+    const focus = !focusMode || focusIndexes[index]
     return <div key={j}>
       <div
         className={cx("task relative", focus ? '' : 'opacity-5')}
@@ -31,7 +31,15 @@ export function TaskList() {
       {j === indexes.length - 1 && <div className="relative h-8" style={{ top: `${height + 33}px` }}></div>}
     </div>
   })
-  return <div className="relative left-0 top-0 w-full h-full">
+  return <div
+    className="relative left-0 top-0 w-full h-full"
+    onKeyDown={(e) => {
+      console.log(e)
+      if (e.key === 'F' && e.ctrlKey) {
+        toggleFocusMode()
+      }
+    }}
+  >
     <div
       className="absolute w-full text-center sm:hidden"
       style={{

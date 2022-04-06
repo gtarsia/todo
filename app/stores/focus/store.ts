@@ -36,3 +36,7 @@ export function setFocusMode(focusMode: boolean) {
   updateFocusIndexes()
 }
 
+export function toggleFocusMode() {
+  const { focusMode } = useFocusStore.getState()
+  setFocusMode(!focusMode)
+}
