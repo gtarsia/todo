@@ -28,7 +28,6 @@ export function TaskList() {
         <Task task={task} index={index} />
         <DragBoxes task={task} index={index} />
       </div>
-      {j === indexes.length - 1 && <div className="relative h-8" style={{ top: `${height + 33}px` }}></div>}
     </div>
   })
   return <div
