@@ -8,7 +8,7 @@ interface FocusStore {
 }
 
 export const useFocusStore = create<FocusStore>(set => ({
-  focusMode: true,
+  focusMode: false,
   focusIndexes: [],
 }))
 
