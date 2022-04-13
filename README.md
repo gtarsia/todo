@@ -28,6 +28,7 @@ https://zzyyxxww.github.io/todo/
 ## Controls
 
 * Switch tasks by using the `up/down arrow`
+* Create task below by pressing `enter`
 * Delete task by pressing `backspace` when task text is empty
 * Toggle checkmark of task with `ctrl+enter` when its text is focused
 * Add indent with `tab`, dedent with `shift+tab`, or drag checkbox left/right
