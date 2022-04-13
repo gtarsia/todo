@@ -6,6 +6,7 @@ import {
 import { getNewIndexes } from 'app/utils/array'
 import { updateTasks } from './update-tasks'
 import { useDocumentStore } from './store'
+import { focus } from './focus'
 
 function _toggleChecked(index: number) {
   const state = useDocumentStore.getState()
@@ -30,6 +31,9 @@ export function toggleChecked(index: number) {
     newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   }
   updateTasks(newTasks, newIndexes)
+  setTimeout(() => {
+    focus(index)
+  })
 }
 
 export function increaseIndent(index: number) {
