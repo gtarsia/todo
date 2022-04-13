@@ -1,17 +1,18 @@
 import { useDocumentStore } from './store'
 
-export function focusPrevious(index: number) {
+export function focus(index: number) {
   const { tasks } = useDocumentStore.getState()
-  tasks[index - 1]?.ref?.focus()
+  tasks[index]?.ref?.focus()
+}
+
+export function focusPrevious(index: number) {
+  focus(index - 1)
 }
 
 export function focusNext(index: number) {
-  const { tasks } = useDocumentStore.getState()
-  const task = tasks[index + 1]
-  task?.ref?.focus()
+  focus(index + 1)
 }
 
 export function focusFirst() {
-  const { tasks } = useDocumentStore.getState()
-  tasks[0]?.ref?.focus()
+  focus(0)
 }
