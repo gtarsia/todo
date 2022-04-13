@@ -27,7 +27,9 @@ export function toggleChecked(index: number) {
     const siblingIndex = getLastUncheckedSiblingIndex(newTasks, index)
     const taskRange = getTaskRange(newTasks, index)
     const siblingRange = getTaskRange(newTasks, siblingIndex)
-    swapRanges(newTasks, taskRange, siblingRange)
+    newTasks.splice(siblingRange.start + siblingRange.count, 0,
+                   ...tasks.slice(taskRange.start, taskRange.start + taskRange.count))
+    newTasks.splice(index, taskRange.count)
     newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   }
   updateTasks(newTasks, newIndexes)
