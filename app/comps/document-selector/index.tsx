@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import { DocumentList } from 'app/comps/document-list'
 import { createDocument as _createDocument } from 'app/stores/app'
+import { cleanTasks as _cleanTasks } from 'app/stores/document'
 import styles from './index.module.css'
 
 export function DocumentSelector() {

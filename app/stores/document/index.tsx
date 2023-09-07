@@ -1,4 +1,5 @@
 
+export * from './clean-tasks'
 export * from './create-task-below'
 export * from './delete-task'
 export * from './focus'
