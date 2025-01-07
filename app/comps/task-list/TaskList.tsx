@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import cx from 'classnames'
 import { Task } from 'app/comps/task'
-import { useAppStore, resetDocument }  from 'app/stores/app'
+import { useAppStore, resetDocument } from 'app/stores/app'
 import { useDocumentStore, focusFirst } from 'app/stores/document'
 import { useFocusStore, toggleFocusMode } from 'app/stores/focus'
 import { DragBoxes } from './DragBoxes'
@@ -33,7 +33,6 @@ export function TaskList() {
   return <div
     className="relative left-0 top-0 w-full h-full"
     onKeyDown={(e) => {
-      console.log(e)
       if (e.key === 'F' && e.ctrlKey) {
         toggleFocusMode()
       }
@@ -54,7 +53,7 @@ export function TaskList() {
       >
         arrow_back
       </span>
-      { doc && doc.name }
+      {doc && doc.name}
     </div>
     <div className={cx(
       'absolute w-full h-full overflow-hidden overflow-y-scroll',

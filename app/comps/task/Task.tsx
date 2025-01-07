@@ -19,7 +19,8 @@ export const Task = memo(function Task(props: TaskProps) {
     style={{ left }}
   >
     <TaskCheckbox checked={props.task.checked} index={props.index} />
-    <div className="ml-1 grow -m-2">
+    <div className="ml-2">{props.task.type === 'task' ? '🚩' : '💬'}</div>
+    <div className="ml-0.5 grow -m-2">
       <TaskText task={props.task} index={props.index} />
     </div>
   </div>

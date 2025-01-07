@@ -28,7 +28,7 @@ export function toggleChecked(index: number) {
     const taskRange = getTaskRange(newTasks, index)
     const siblingRange = getTaskRange(newTasks, siblingIndex)
     newTasks.splice(siblingRange.start + siblingRange.count, 0,
-                   ...tasks.slice(taskRange.start, taskRange.start + taskRange.count))
+      ...tasks.slice(taskRange.start, taskRange.start + taskRange.count))
     newTasks.splice(index, taskRange.count)
     newIndexes = getNewIndexes(indexes, oldTasks, newTasks)
   }
@@ -57,4 +57,12 @@ export function setIndent(index: number, indent: number): TaskModel {
   const newTasks = produce(tasks, draft => { draft[index].indent = indent })
   updateTasks(newTasks, indexes)
   return newTasks[index]
+}
+
+export function toggleType(index: number) {
+  const state = useDocumentStore.getState()
+  const tasks = produce(state.tasks, draft => {
+    draft[index].type = draft[index].type === 'task' ? 'discuss' : 'task'
+  })
+  useDocumentStore.setState({ tasks })
 }

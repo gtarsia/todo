@@ -8,7 +8,7 @@ interface DragStore {
 
 export const useDragStore = create<DragStore>(set => ({
   props: {
-    task: { text: '', checked: false, indent: 0 },
+    task: { text: '', checked: false, indent: 0, type: 'task' },
     index: -1,
   },
   active: false,

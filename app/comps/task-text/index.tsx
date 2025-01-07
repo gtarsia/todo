@@ -8,7 +8,7 @@ import {
 import {
   nonReactiveSetTaskText, nonReactiveSetTextareaRef, focusNext, focusPrevious,
   deleteTask, swapPrevious, swapNext, toggleChecked, createTaskBelow,
-  increaseIndent, decreaseIndent, setFocusIndex,
+  increaseIndent, decreaseIndent, setFocusIndex, toggleType,
 } from 'app/stores/document'
 import styles from './index.module.css'
 
@@ -39,6 +39,10 @@ export function TaskText(props: { task: TaskModel, index: number }) {
           createTaskBelow(props.index)
           e.preventDefault()
         }
+      }
+      if (e.key === 'K' && e.ctrlKey) {
+        toggleType(props.index)
+        e.preventDefault()
       }
     }
     function handleKeydown(e: KeyboardEvent) {
