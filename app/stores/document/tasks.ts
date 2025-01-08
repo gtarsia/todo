@@ -64,5 +64,5 @@ export function toggleType(index: number) {
   const tasks = produce(state.tasks, draft => {
     draft[index].type = draft[index].type === 'task' ? 'discuss' : 'task'
   })
-  useDocumentStore.setState({ tasks })
+  updateTasks(tasks, state.indexes)
 }
