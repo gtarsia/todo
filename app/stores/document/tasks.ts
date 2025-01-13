@@ -62,7 +62,8 @@ export function setIndent(index: number, indent: number): TaskModel {
 export function toggleType(index: number) {
   const state = useDocumentStore.getState()
   const tasks = produce(state.tasks, draft => {
-    draft[index].type = draft[index].type === 'task' ? 'discuss' : 'task'
+    const { type } = draft[index]
+    draft[index].type = type === 'task' ? 'discuss' : type === 'discuss' ? 'container' : 'task'
   })
   updateTasks(tasks, state.indexes)
 }

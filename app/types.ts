@@ -3,7 +3,7 @@ export interface TaskModel {
   checked: boolean;
   text: string;
   indent: number;
-  type: 'task' | 'discuss'
+  type: 'task' | 'discuss' | 'container'
   ref?: HTMLTextAreaElement;
 }
 
